@@ -9,14 +9,14 @@ const taskInput     = document.getElementById("task");
 const clearButton   = document.getElementById("btn");
 
 //Event listeners
-taskInput.addEventListener('focus',fun2);
-task_list.addEventListener('click',cls);
-clearButton.addEventListener('click',task_clear);
-foo.addEventListener('click',fun);
+taskInput.addEventListener('focus',disable_add_task_button);
+task_list.addEventListener('click',clear_task);
+clearButton.addEventListener('click',all_task_clear);
+foo.addEventListener('click',create_new_task);
 
 // implementation
 
-function fun2()
+function disable_add_task_button()
 {
     taskInput.addEventListener('blur',function(){
         
@@ -30,9 +30,12 @@ function fun2()
     
 }
 
-function fun(e)
+function create_new_task(e)
 {
-
+    e.preventDefault();    
+    if(taskInput.value == ''){
+        //do nothing
+    } else {
     li = document.createElement('li');//creating element 
     li.className = "collection-item ";//assign class name
     li.appendChild(document.createTextNode(taskInput.value));//creating text node and assign append to li
@@ -42,13 +45,14 @@ function fun(e)
     li.appendChild(remIcon); //append to li
     task_list.appendChild(li);//lastly li append to ul
     taskInput.value = "";
-    e.preventDefault();
     
-
+    
+    }
+    
 }
 
 
-function cls(event)
+function clear_task(event)
 {
    
    if(event.target.parentElement.classList.contains("delete-item")){
@@ -58,7 +62,7 @@ function cls(event)
    }
 }
 
-function task_clear(event) 
+function all_task_clear(event) 
 {
     while (task_list.firstChild) {
         task_list.removeChild(task_list.firstChild);
@@ -74,8 +78,7 @@ filter.addEventListener('keyup',(event)=>{
            task_list.style.display = 'block'; 
         } else {
             task_list.style.display = 'none';
-        }
-        
-    });
+        };
+    });    
 
-})
+});
